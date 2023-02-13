@@ -1,0 +1,24 @@
+{
+  "GlogConfig": {
+    "MaxSize": 256,
+    "V": 8
+  },
+  "UDPCollector": {
+    "Interface": "bond0.103",
+    "Port": 5514,
+    "SrcUDP": "10.51.158.151",
+    "SizeCapture": 1600
+  },
+  "UDPMapping":{
+    "Host": "10.51.28.225",
+    "Port": 7000
+  },
+  "Restful":{
+    "Interface": "bond0.103",
+    "Host": "0.0.0.0",
+    "Port": 7001
+  },
+  "System": {
+    "NumberThread": 8000
+  }
+}
