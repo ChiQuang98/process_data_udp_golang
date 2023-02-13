@@ -1,6 +1,6 @@
 
 # Ignore all files ending in .log
-*.log
+/logs
 # Ignore IntelliJ's files and directories
 .idea/
 *.iml
