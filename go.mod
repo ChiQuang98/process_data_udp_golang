@@ -8,4 +8,5 @@ require (
 	github.com/google/gopacket v1.1.19
 	github.com/gorilla/mux v1.8.0
 	github.com/rs/cors v1.8.3
+	github.com/syndtr/goleveldb v1.0.0
 )

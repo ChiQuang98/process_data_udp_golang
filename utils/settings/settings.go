@@ -11,6 +11,7 @@ type Settings struct {
 	UDPMapping   *UDPMapping
 	Restful      *Restful
 	System       *System
+	IPConfig     *IPConfig
 }
 type GlogConfigs struct {
 	LogDir  string
@@ -20,7 +21,8 @@ type GlogConfigs struct {
 type UDPCollector struct {
 	Interface   string
 	Port        uint64
-	SrcUDP      string
+	SrcUDP1     string
+	SrcUDP2     string
 	SizeCapture int32
 }
 type UDPMapping struct {
@@ -34,6 +36,10 @@ type Restful struct {
 }
 type System struct {
 	NumberThread int
+}
+type IPConfig struct {
+	LevelDB  string
+	NameFile string
 }
 
 var settings Settings = Settings{}
@@ -59,6 +65,9 @@ func init() {
 }
 func GetGlogConfig() *GlogConfigs {
 	return settings.GlogConfig
+}
+func GetIPConfig() *IPConfig {
+	return settings.IPConfig
 }
 func GetUDPCollector() *UDPCollector {
 	return settings.UDPCollector

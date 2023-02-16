@@ -2,31 +2,39 @@ package global_ips
 
 import (
 	"TCP_Packet/models"
-	"sync"
+	"github.com/golang/glog"
+	"github.com/syndtr/goleveldb/leveldb"
+	"log"
 )
 
-var SharedIPS = make(map[string]struct{})
-var lock sync.RWMutex
+//var (
+//	SharedIPS = make(map[string]struct{})
+//	mutex     sync.RWMutex
+//)
 
-func GetIPS() map[string]struct{} {
-	lock.RLock()
-	defer lock.RUnlock()
-	return SharedIPS
-}
-
-func UpdateIPS(ips *models.IPS) {
-	lock.Lock()
-	defer lock.Unlock()
-	//sharedVariable++
-	for _, ip := range ips.ListIp {
-		SharedIPS[ip] = struct{}{}
+//var lock sync.RWMutex
+//Key is IP
+func CheckIPSExsist(db *leveldb.DB, key []byte) bool {
+	has, err := db.Has(key, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if has {
+		return true
+	} else {
+		return false
 	}
 }
-func DeleteIPS(ips *models.IPS) {
-	lock.Lock()
-	defer lock.Unlock()
-	//sharedVariable++
+func UpdateIPSToLevelDB(db *leveldb.DB, ips *models.IPS) {
 	for _, ip := range ips.ListIp {
-		delete(SharedIPS, ip)
+		err := db.Put([]byte(ip), []byte("1"), nil)
+		if err != nil {
+			glog.Error(ip, err)
+		}
+	}
+}
+func DeleteIPSToLevelDB(db *leveldb.DB, ips *models.IPS) {
+	for _, ip := range ips.ListIp {
+		db.Delete([]byte(ip), nil)
 	}
 }

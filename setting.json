@@ -4,9 +4,10 @@
     "V": 8
   },
   "UDPCollector": {
-    "Interface": "bond0.103",
+    "Interface": "bond0",
     "Port": 5514,
-    "SrcUDP": "10.51.158.151",
+    "SrcUDP1": "10.51.158.149",
+    "SrcUDP2": "10.51.158.151",
     "SizeCapture": 1600
   },
   "UDPMapping":{
@@ -14,11 +15,15 @@
     "Port": 7000
   },
   "Restful":{
-    "Interface": "bond0.103",
+    "Interface": "bond0",
     "Host": "0.0.0.0",
     "Port": 7001
   },
   "System": {
-    "NumberThread": 8000
+    "NumberThread": 2000
+  },
+  "IPConfig": {
+    "LevelDB": "/u01/app_mobileid/golang/TCP_Packet/levelDB/ips",
+    "NameFile": "ips.txt"
   }
 }

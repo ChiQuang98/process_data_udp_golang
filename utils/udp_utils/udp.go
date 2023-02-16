@@ -21,5 +21,4 @@ func SendPacket(remoteAddr string, portUDP int, data []byte) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Packet sent!")
 }

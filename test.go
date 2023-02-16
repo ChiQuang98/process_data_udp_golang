@@ -1,15 +1,25 @@
 package main
 
 import (
-	"regexp"
+	"fmt"
+	"github.com/golang/glog"
+	"github.com/syndtr/goleveldb/leveldb"
+	"log"
 )
 
 func main() {
-	text := []byte(" nat-destination-address=\"42.1.66.19\" nat-destination-port=\"80\"")
-	re := regexp.MustCompile(`nat-destination-address="([^"]+)"`)
-	match := re.FindSubmatch(text)
-	if match != nil {
-		println("nat-destination-address:", string(match[1]))
+	db, err := leveldb.OpenFile("/u01/app_mobileid/golang/TCP_Packet/dbips", nil)
+	if err != nil {
+		glog.Error("Err levelDB: ", err)
+		//panic(err)
+	}
+	key := []byte("mykey")
+	value := []byte("myvalue")
+
+	err = db.Put(key, value, nil)
+	if err != nil {
+		log.Fatal(err)
 	}
 
+	fmt.Printf("Stored key %s with value %s in LevelDB\n", string(key), string(value))
 }
