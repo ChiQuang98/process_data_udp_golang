@@ -24,6 +24,7 @@ func WorkerProcessingUDP(hostUDP string, portUDP int, packets <-chan gopacket.Pa
 			match := re.FindSubmatch(udpHeader.Payload)
 			if len(match) > 1 {
 				//Neu key la ip ton tai trong leveldB
+				//match[1] is nat-destination-address
 				if global_ips.CheckIPSExsist(db, match[1]) {
 					msg := sys_log.ParseSyslog((udpHeader.Payload))
 					udp_utils.SendPacket(hostUDP, portUDP, []byte(msg))

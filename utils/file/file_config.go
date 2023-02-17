@@ -1,13 +1,11 @@
 package file
 
 import (
-	"TCP_Packet/utils/global_ips"
 	"TCP_Packet/utils/settings"
 	"fmt"
 	"github.com/golang/glog"
 	"io/ioutil"
 	"strings"
-	"time"
 )
 
 func ConvertSetToString(setContent map[string]struct{}) []string {
@@ -40,17 +38,18 @@ func ReadIPSFromFile() map[string]struct{} {
 	}
 	return setIPs
 }
-func ScheduleWriteIPSToFile() {
-	glog.Info("Scheduled Write IPS to File at Midnight Daily")
-	ticker := time.NewTicker(24 * time.Hour) // create a ticker that ticks every 24 hours
-	defer ticker.Stop()
 
-	for {
-		now := time.Now()                                                                     // get the current time
-		midnight := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location()) // calculate the next midnight
-		if now.Before(midnight) {
-			<-time.After(midnight.Sub(now)) // wait until midnight
-		}
-		WriteIPSToFile(global_ips.GetIPS())
-	}
-}
+//func ScheduleWriteIPSToFile() {
+//	glog.Info("Scheduled Write IPS to File at Midnight Daily")
+//	ticker := time.NewTicker(24 * time.Hour) // create a ticker that ticks every 24 hours
+//	defer ticker.Stop()
+//
+//	for {
+//		now := time.Now()                                                                     // get the current time
+//		midnight := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location()) // calculate the next midnight
+//		if now.Before(midnight) {
+//			<-time.After(midnight.Sub(now)) // wait until midnight
+//		}
+//		WriteIPSToFile(global_ips.GetIPS())
+//	}
+//}

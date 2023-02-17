@@ -23,7 +23,7 @@
     "NumberThread": 2000
   },
   "IPConfig": {
-    "LevelDB": "/u01/app_mobileid/golang/TCP_Packet/levelDB/ips",
+    "LevelDB": "/u01/app_mobileid/TCP_Packet/levelDB/ips",
     "NameFile": "ips.txt"
   }
 }
