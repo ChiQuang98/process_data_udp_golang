@@ -3,66 +3,82 @@ package controllers
 import (
 	"TCP_Packet/models"
 	"TCP_Packet/services"
+	"TCP_Packet/utils/http_utils"
 	"encoding/json"
+	"github.com/syndtr/goleveldb/leveldb/errors"
 	"net/http"
 )
 
 func UpdateIPS(w http.ResponseWriter, r *http.Request, n http.HandlerFunc) {
 	requestBody := new(models.IPS)
 	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&requestBody)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
 		switch err.(type) {
 		case *json.SyntaxError:
-			w.Write([]byte("Json syntax error:" + err.Error()))
+			status, res := http_utils.ResponseError("Json syntax error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
 		case *json.UnmarshalTypeError:
-			w.Write([]byte("Json Unmarshal Type Error:" + err.Error()))
+			status, res := http_utils.ResponseError("Json Unmarshal Type Error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
 		default:
-			w.Write([]byte("Unknown Error:" + err.Error()))
+			status, res := http_utils.ResponseError("Unknown Error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
 		}
 	} else {
-		//if it's a root server -> make call to sub Server on port 7002
-		//if settings.GetRestful().Port != settings.GetRestful().SubPort {
-		//	subURL := "update/v1/ips"
-		//	host := settings.GetRestful().Host
-		//	port := settings.GetRestful().SubPort
-		//	http_utils.RequestUpdateIPS(host, port, subURL, http.MethodPost, requestBody)
-		//}
-		status, res := services.UpdateIPS(requestBody)
-		w.WriteHeader(status)
-		w.Write(res)
+		if len(requestBody.ListIp) < 1 {
+			err = errors.New("Length of IPS is zero, try again")
+			status, res := http_utils.ResponseError("Error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
+		} else {
+			status, res := services.UpdateIPS(requestBody)
+			w.WriteHeader(status)
+			w.Write(res)
+		}
 	}
 }
 func DeleteIPS(w http.ResponseWriter, r *http.Request, n http.HandlerFunc) {
 	requestBody := new(models.IPS)
 	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&requestBody)
-	//for ip, _ := range global_ips.GetIPS() {
-	//	print(ip + ",")
-	//}
-	//println("")
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
 		switch err.(type) {
 		case *json.SyntaxError:
-			w.Write([]byte("Json syntax error:" + err.Error()))
+			status, res := http_utils.ResponseError("Json syntax error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
 		case *json.UnmarshalTypeError:
-			w.Write([]byte("Json Unmarshal Type Error:" + err.Error()))
+			status, res := http_utils.ResponseError("Json Unmarshal Type Error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
 		default:
-			w.Write([]byte("Unknown Error:" + err.Error()))
+			status, res := http_utils.ResponseError("Unknown Error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
 		}
 	} else {
-		//if settings.GetRestful().Port != settings.GetRestful().SubPort {
-		//	subURL := "delete/v1/ips"
-		//	host := settings.GetRestful().Host
-		//	port := settings.GetRestful().SubPort
-		//	http_utils.RequestUpdateIPS(host, port, subURL, http.MethodDelete, requestBody)
-		//}
-		status, res := services.DeleteIPS(requestBody)
-		w.WriteHeader(status)
-		w.Write(res)
+		if len(requestBody.ListIp) < 1 {
+			err = errors.New("Length of IPS is zero, try again")
+			status, res := http_utils.ResponseError("Error", err, http.StatusBadRequest)
+			w.WriteHeader(status)
+			w.Write(res)
+		} else {
+			status, res := services.DeleteIPS(requestBody)
+			w.WriteHeader(status)
+			w.Write(res)
+		}
 	}
+}
+func GetIPS(w http.ResponseWriter, r *http.Request, n http.HandlerFunc) {
+	status, res := services.GetIPS()
+	w.WriteHeader(status)
+	w.Write(res)
 }

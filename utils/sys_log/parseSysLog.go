@@ -38,6 +38,7 @@ func ParseSyslog(message []byte) string {
 	//2023-02-13T18:51:29.509+07:00
 	// layout1 := "2006-01-02T15:04:05.999-07:00"
 	// layout2 := "2006-01-02T15:04:05.999Z"
+
 	t1, err := time.Parse(time.RFC3339Nano, result["timestamp"])
 	msg := result["timestamp"] + "," + result["source-address"] + "," + result["source-port"] + "," + result["nat-destination-address"] + "," + result["nat-destination-port"]
 	if err == nil {

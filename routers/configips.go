@@ -15,6 +15,10 @@ func SetIPS(router *mux.Router) *mux.Router {
 		negroni.New(
 			negroni.HandlerFunc(controllers.DeleteIPS),
 		)).Methods("DELETE")
+	router.Handle("/readall/v1/ips",
+		negroni.New(
+			negroni.HandlerFunc(controllers.GetIPS),
+		)).Methods("GET")
 	return router
 
 }
