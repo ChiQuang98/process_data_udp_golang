@@ -1,0 +1,29 @@
+{
+  "GlogConfig": {
+    "MaxSize": 256,
+    "V": 8
+  },
+  "UDPCollector": {
+    "Interface": "bond0",
+    "Port": 5514,
+    "SrcUDP1": "10.51.46.101",
+    "SrcUDP2": "10.51.46.103",
+    "SizeCapture": 1600
+  },
+  "UDPMapping":{
+    "Host": "10.51.28.225",
+    "Port": 7000
+  },
+  "Restful":{
+    "Interface": "bond0",
+    "Host": "0.0.0.0",
+    "Port": 7001
+  },
+  "System": {
+    "NumberThread": 2000
+  },
+  "IPConfig": {
+    "LevelDB": "/u01/app_mobileid/script_TCP/levelDB/ips",
+    "NameFile": "ips.txt"
+  }
+}
