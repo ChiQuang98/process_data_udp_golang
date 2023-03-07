@@ -49,7 +49,12 @@ func main() {
 	}
 	defer handle.Close()
 	// Set a filter to only capture UDP packets on the specified port
-	filter := fmt.Sprintf("udp and port %d and (src host %s or src host %s)", port, srcHost1, srcHost2)
+	filter :=""
+	if srcHost2 == "" {
+		filter = fmt.Sprintf("udp and port %d and src host %s", port, srcHost1)
+	} else {
+		filter = fmt.Sprintf("udp and port %d and (src host %s or src host %s)", port, srcHost1, srcHost2)
+	}
 	err = handle.SetBPFFilter(filter)
 	if err != nil {
 		glog.Error(err)

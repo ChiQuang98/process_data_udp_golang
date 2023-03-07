@@ -1,4 +1,7 @@
-Log file created at: 2023/03/03 17:41:50
-Running on machine: pr-dd-yha01
+Log file created at: 2023/03/07 09:41:15
+Running on machine: pr-dd-nvl01
 Binary: Built with gc go1.17.2 for linux/amd64
 Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0307 09:41:15.529761   59532 main.go:43] Readed IPS from file to sharedIPS var at starting program
+I0307 09:41:15.530005   59532 main.go:45] Service Processing UDP for Interface bond0 and from source host: 10.52.221.42 and  Packet Runing 
+E0307 09:41:15.559215   59532 main.go:55] syntax error

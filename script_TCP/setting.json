@@ -6,8 +6,8 @@
   "UDPCollector": {
     "Interface": "bond0",
     "Port": 5514,
-    "SrcUDP1": "10.51.46.101",
-    "SrcUDP2": "10.51.46.103",
+    "SrcUDP1": "10.52.221.42",
+    "SrcUDP2": "",
     "SizeCapture": 1600
   },
   "UDPMapping":{
